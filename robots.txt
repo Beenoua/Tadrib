@@ -3,5 +3,6 @@ Allow: /
 Disallow: /404.html
 Disallow: /assets
 Disallow: /*.pdfs$
+Disallow: /*.pdf$
+Disallow: /pdfs$
 Sitemap: https://tadrib.ma/sitemap.xml
-
