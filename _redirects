@@ -1,8 +1,14 @@
 Tadrib.ma Redirect Rules:
-/test   https://tadrib.ma/exemple  301
+/   https://tadrib.ma/exemple  301
 
 
-
+/pdf-ar_1    https://tadrib.ma/?lang=ar#samir_bouchrit-ar&utm_source=ar_email_marketing&utm_medium=ar_pdf_file&utm_campaign=ar_courses       301
+/pdf-ar_2    https://tadrib.ma/?lang=ar#courses-ar&utm_source=ar_email_marketing&utm_medium=ar_pdf_file&utm_campaign=ar_erxpert              301
+/pdf-fr_1    https://tadrib.ma/?lang=fr#samir_bouchrit-fr&utm_source=fr_email_marketing&utm_medium=fr_pdf_file&utm_campaign=fr_courses       301
+/pdf-fr_2    https://tadrib.ma/?lang=fr#courses-fr&utm_source=fr_email_marketing&utm_medium=fr_pdf_file&utm_campaign=fr_expert               301
+/pdf-en_1    https://tadrib.ma/?lang=en#samir_bouchrit-en&utm_source=en_email_marketing&utm_medium=en_pdf_file&utm_campaign=en_courses       301
+/pdf-en_2    https://tadrib.ma/?lang=en#courses-en&utm_source=en_email_marketing&utm_medium=en_pdf_file&utm_campaign=en_expert               301
+   
 
 
 
