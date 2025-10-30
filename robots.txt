@@ -5,4 +5,5 @@ Disallow: /assets
 Disallow: /*.pdfs$
 Disallow: /*.pdf$
 Disallow: /pdfs$
+Disallow: /*.files/pdfs/pmp_guide.html$
 Sitemap: https://tadrib.ma/sitemap.xml
