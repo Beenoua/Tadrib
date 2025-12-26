@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMP® Certification Ultimate Guide | Tadrib.ma</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTML2PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        'sans': ['Inter', 'sans-serif'],
+                        'arabic': ['Cairo', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#1E3A8A',
+                            gold: '#D97706',
+                            accent: '#2563EB',
+                            dark: '#0F172A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #525659; /* PDF Viewer Background */
+            font-family: 'Inter', sans-serif;
+        }
+        .rtl { direction: rtl; font-family: 'Cairo', sans-serif; }
+        .ltr { direction: ltr; font-family: 'Inter', sans-serif; }
+
+        /* A4 Paper Simulation */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 30px auto;
+            padding: 20mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Print Styling */
+        @media print {
+            body { background: white; }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                width: 100%;
+                height: 100%;
+            }
+            .no-print { display: none !important; }
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 8rem;
+            color: rgba(30, 58, 138, 0.03);
+            font-weight: 900;
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+        }
+
+        /* UI Controls */
+        .controls {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- UI Controls (Language & Download) -->
+    <div class="controls no-print">
+        <div class="flex items-center gap-4">
+            <div class="text-white font-bold text-xl flex items-center gap-2">
+                <i class="fas fa-book-reader text-brand-gold"></i>
+                <span class="hidden md:inline">Tadrib.ma PMP® Guide</span>
+            </div>
+            
+            <!-- Language Switcher -->
+            <div class="flex bg-slate-700 rounded-lg p-1">
+                <button onclick="setLang('en')" class="lang-btn px-4 py-1 rounded text-sm text-white hover:bg-slate-600 transition" id="btn-en">English</button>
+                <button onclick="setLang('fr')" class="lang-btn px-4 py-1 rounded text-sm text-white hover:bg-slate-600 transition" id="btn-fr">Français</button>
+                <button onclick="setLang('ar')" class="lang-btn px-4 py-1 rounded text-sm text-white hover:bg-slate-600 transition font-arabic" id="btn-ar">العربية</button>
+            </div>
+        </div>
+
+        <button onclick="downloadPDF()" class="bg-brand-gold hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg transform hover:scale-105 transition flex items-center gap-2">
+            <i class="fas fa-download"></i>
+            <span id="download-text">Download PDF</span>
+        </button>
+    </div>
+
+    <div class="h-20 no-print"></div> <!-- Spacer -->
+
+    <!-- ================= CONTENT CONTAINER ================= -->
+    <div id="document-content">
+        
+        <!-- PAGE 1: COVER -->
+        <div class="page">
+            <div class="watermark">Tadrib.ma Guide</div>
+            
+            <!-- Branding Header -->
+            <div class="flex justify-between items-center border-b-4 border-brand-blue pb-6 mb-12">
+                <h2 class="text-2xl font-bold text-brand-blue tracking-tighter">Tadrib.ma</h2>
+                <div class="text-sm text-gray-500 font-mono">PMP® CERTIFICATION SERIES</div>
+            </div>
+
+            <!-- Main Title Area -->
+            <div class="flex-1 flex flex-col justify-center">
+                <span class="text-brand-gold font-bold tracking-widest uppercase mb-4" id="cover-subtitle">The Ultimate Roadmap</span>
+                <h1 class="text-6xl font-black text-brand-dark leading-tight mb-8" id="cover-title">
+                    Your Path to PMP® Certification<br>
+                    <span class="text-brand-blue">Approved First Time.</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 leading-relaxed max-w-2xl border-l-4 border-brand-gold pl-6" id="cover-desc">
+                    A comprehensive guide for engineers and managers to navigate the PMI application process, specially tailored for the Moroccan context.
+                </p>
+            </div>
+
+            <!-- Author & Footer -->
+            <div class="mt-auto">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-brand-blue border-2 border-brand-blue">SB</div>
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-dark">Eng. Samir Bouchrit</h3>
+                        <p class="text-sm text-gray-500">PMP® Expert (19+ Years Exp.)</p>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 p-6 rounded-lg border border-slate-200 text-sm text-gray-500 flex justify-between">
+                    <span>© 2025 Tadrib.ma</span>
+                    <span>www.tadrib.ma</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 2: ELIGIBILITY & PROCESS -->
+        <div class="page">
+            <div class="watermark">Tadrib.ma</div>
+
+            <h2 class="text-3xl font-bold text-brand-blue mb-8 flex items-center gap-3">
+                <span class="bg-blue-100 p-2 rounded"><i class="fas fa-check-double"></i></span>
+                <span id="p2-title">Part 1: Are You Eligible?</span>
+            </h2>
+
+            <div class="space-y-8 text-gray-700 leading-relaxed">
+                <p id="p2-intro">
+                    Before applying, you must meet specific educational and professional requirements set by PMI. This is the first filter where many fail.
+                </p>
+
+                <!-- Eligibility Grid -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-6 rounded-xl border-t-4 border-brand-blue shadow-sm">
+                        <h3 class="font-bold text-lg mb-4 text-brand-dark" id="p2-cat1-title">Category 1: Four-Year Degree</h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start gap-2"><i class="fas fa-graduation-cap text-brand-gold mt-1"></i> <span id="p2-cat1-edu">Bachelor's degree or global equivalent.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-briefcase text-brand-blue mt-1"></i> <span id="p2-cat1-exp">36 months of unique non-overlapping professional project management experience.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-clock text-green-600 mt-1"></i> <span id="p2-cat1-hours">35 Contact Hours of Project Management Education.</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-50 p-6 rounded-xl border-t-4 border-brand-gold shadow-sm">
+                        <h3 class="font-bold text-lg mb-4 text-brand-dark" id="p2-cat2-title">Category 2: High School Diploma</h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start gap-2"><i class="fas fa-school text-brand-gold mt-1"></i> <span id="p2-cat2-edu">High school diploma or associate's degree.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-briefcase text-brand-blue mt-1"></i> <span id="p2-cat2-exp">60 months of unique non-overlapping professional project management experience.</span></li>
+                            <li class="flex items-start gap-2"><i class="fas fa-clock text-green-600 mt-1"></i> <span id="p2-cat2-hours">35 Contact Hours of Project Management Education.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-brand-blue mt-6">
+                    <h4 class="font-bold text-brand-blue mb-2 flex items-center gap-2">
+                        <i class="fas fa-info-circle"></i> <span id="p2-note-title">The "35 Contact Hours" Requirement</span>
+                    </h4>
+                    <p class="text-sm text-gray-700" id="p2-note-text">
+                        This is mandatory. You cannot self-study for this. You must attend a formal training course. At <strong>Tadrib.ma</strong>, our training not only provides these hours but bridges the gap between theory and the Moroccan market reality.
+                    </p>
+                </div>
+
+                <!-- The Process Timeline -->
+                <h3 class="text-xl font-bold text-brand-dark mt-8 mb-4" id="p2-process-title">The Application Timeline</h3>
+                <div class="relative pl-8 border-l-2 border-gray-200 space-y-6">
+                    <div class="relative">
+                        <span class="absolute -left-[41px] bg-brand-blue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                        <h4 class="font-bold text-gray-800" id="step1">Submission (90 Days)</h4>
+                        <p class="text-xs text-gray-500">You have 90 days to complete your application once started.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[41px] bg-brand-gold text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                        <h4 class="font-bold text-gray-800" id="step2">Review (5 Days)</h4>
+                        <p class="text-xs text-gray-500">PMI reviews your application for completeness.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[41px] bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                        <h4 class="font-bold text-gray-800" id="step3">Audit Process (Random)</h4>
+                        <p class="text-xs text-gray-500">If selected, you must provide proof of experience.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-gray-100 flex justify-between text-xs text-gray-400">
+                <span>Tadrib.ma Guide</span>
+                <span>Page 2</span>
+            </div>
+        </div>
+
+        <!-- PAGE 3: AUDIT & EXPERT ADVICE -->
+        <div class="page">
+            <div class="watermark">Success</div>
+
+            <h2 class="text-3xl font-bold text-brand-blue mb-8 flex items-center gap-3">
+                <span class="bg-blue-100 p-2 rounded"><i class="fas fa-search-dollar"></i></span>
+                <span id="p3-title">Surviving the Audit & Why Tadrib.ma?</span>
+            </h2>
+
+            <div class="bg-amber-50 p-6 rounded-xl border border-amber-200 mb-8">
+                <h3 class="font-bold text-amber-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-exclamation-triangle"></i> <span id="p3-audit-head">What if I get Audited?</span>
+                </h3>
+                <p class="text-sm text-amber-900 mb-4 text-justify" id="p3-audit-text">
+                    The audit is random. It's not a penalty. If selected, you have 90 days to mail your materials to PMI.
+                </p>
+                <ul class="text-sm text-amber-800 space-y-2 list-disc list-inside">
+                    <li id="p3-audit-list1">Copies of your diploma/degree.</li>
+                    <li id="p3-audit-list2">Signatures from your supervisors verifying your experience.</li>
+                    <li id="p3-audit-list3">Certificate of 35 contact hours (Provided by Tadrib.ma).</li>
+                </ul>
+            </div>
+
+            <div class="space-y-6">
+                <h3 class="text-2xl font-bold text-brand-dark" id="p3-why-title">Why Professionals Choose Tadrib.ma?</h3>
+                
+                <div class="flex gap-4">
+                    <div class="shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-brand-blue"><i class="fas fa-hard-hat"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-800" id="p3-feat1-title">Real-World Expertise</h4>
+                        <p class="text-sm text-gray-600 text-justify" id="p3-feat1-text">
+                            Led by Eng. Samir Bouchrit, who has 19 years of experience managing complex infrastructure projects in Morocco (ADM, SGTM). You learn from the field, not just books.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-brand-blue"><i class="fas fa-language"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-800" id="p3-feat2-title">Bilingual Mastery</h4>
+                        <p class="text-sm text-gray-600 text-justify" id="p3-feat2-text">
+                            We understand the Moroccan context where French is the business language, but English is the PMP standard. We help you bridge this gap effortlessly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-brand-blue"><i class="fas fa-handshake"></i></div>
+                    <div>
+                        <h4 class="font-bold text-gray-800" id="p3-feat3-title">Post-Training Support</h4>
+                        <p class="text-sm text-gray-600 text-justify" id="p3-feat3-text">
+                            Our relationship doesn't end with the course. We support you through the application submission and audit process to ensure your success.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Box -->
+            <div class="mt-10 bg-brand-dark text-white p-8 rounded-2xl text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold opacity-10 rounded-full transform translate-x-10 -translate-y-10"></div>
+                
+                <h3 class="text-2xl font-bold mb-2" id="cta-title">Ready to Start?</h3>
+                <p class="text-gray-400 mb-6 text-sm" id="cta-text">Book your seat in the next cohort and secure your PMP certification.</p>
+                <a href="https://tadrib.ma" class="inline-block bg-brand-gold hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-lg transition">
+                    www.tadrib.ma
+                </a>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-gray-100 flex justify-between text-xs text-gray-400">
+                <span>Tadrib.ma Guide</span>
+                <span>Page 3</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // Content Database
+        const content = {
+            en: {
+                // UI
+                download: "Download PDF",
+                // Cover
+                subtitle: "The Ultimate Roadmap",
+                title: "Your Path to PMP® Certification<br><span class='text-brand-blue'>Approved First Time.</span>",
+                desc: "A comprehensive guide for engineers and managers to navigate the PMI application process, specially tailored for the Moroccan context.",
+                // Page 2
+                p2Title: "Part 1: Are You Eligible?",
+                p2Intro: "Before applying, you must meet specific educational and professional requirements set by PMI. This is the first filter where many fail.",
+                cat1Title: "Category 1: Four-Year Degree",
+                cat1Edu: "Bachelor's degree or global equivalent.",
+                cat1Exp: "36 months of unique non-overlapping professional project management experience.",
+                cat1Hours: "35 Contact Hours of Project Management Education.",
+                cat2Title: "Category 2: High School Diploma",
+                cat2Edu: "High school diploma or associate's degree.",
+                cat2Exp: "60 months of unique non-overlapping professional project management experience.",
+                cat2Hours: "35 Contact Hours of Project Management Education.",
+                noteTitle: "The '35 Contact Hours' Requirement",
+                noteText: "This is mandatory. You cannot self-study for this. You must attend a formal training course. At <strong>Tadrib.ma</strong>, our training not only provides these hours but bridges the gap between theory and the Moroccan market reality.",
+                processTitle: "The Application Timeline",
+                step1: "Submission (90 Days)",
+                step2: "Review (5 Days)",
+                step3: "Audit Process (Random)",
+                // Page 3
+                p3Title: "Surviving the Audit & Why Tadrib.ma?",
+                auditHead: "What if I get Audited?",
+                auditText: "The audit is random. It's not a penalty. If selected, you have 90 days to mail your materials to PMI.",
+                auditList1: "Copies of your diploma/degree.",
+                auditList2: "Signatures from your supervisors verifying your experience.",
+                auditList3: "Certificate of 35 contact hours (Provided by Tadrib.ma).",
+                whyTitle: "Why Professionals Choose Tadrib.ma?",
+                feat1Title: "Real-World Expertise",
+                feat1Text: "Led by Eng. Samir Bouchrit, who has 19 years of experience managing complex infrastructure projects in Morocco (ADM, SGTM). You learn from the field, not just books.",
+                feat2Title: "Bilingual Mastery",
+                feat2Text: "We understand the Moroccan context where French is the business language, but English is the PMP standard. We help you bridge this gap effortlessly.",
+                feat3Title: "Post-Training Support",
+                feat3Text: "Our relationship doesn't end with the course. We support you through the application submission and audit process to ensure your success.",
+                ctaTitle: "Ready to Start?",
+                ctaText: "Book your seat in the next cohort and secure your PMP certification."
+            },
+            fr: {
+                download: "Télécharger PDF",
+                subtitle: "La Feuille de Route Ultime",
+                title: "Votre Chemin vers la Certification PMP®<br><span class='text-brand-blue'>Approuvé du Premier Coup.</span>",
+                desc: "Un guide complet pour les ingénieurs et managers pour naviguer dans le processus de candidature PMI, spécialement adapté au contexte marocain.",
+                p2Title: "Partie 1 : Êtes-vous Éligible ?",
+                p2Intro: "Avant de postuler, vous devez répondre à des exigences éducatives et professionnelles spécifiques fixées par le PMI. C'est le premier filtre où beaucoup échouent.",
+                cat1Title: "Catégorie 1 : Diplôme Universitaire (Bac+4)",
+                cat1Edu: "Licence ou diplôme équivalent.",
+                cat1Exp: "36 mois d'expérience professionnelle unique en gestion de projet.",
+                cat1Hours: "35 Heures de contact en formation de gestion de projet.",
+                cat2Title: "Catégorie 2 : Diplôme Secondaire (Bac)",
+                cat2Edu: "Diplôme d'études secondaires ou équivalent.",
+                cat2Exp: "60 mois d'expérience professionnelle unique en gestion de projet.",
+                cat2Hours: "35 Heures de contact en formation de gestion de projet.",
+                noteTitle: "L'exigence des '35 Heures'",
+                noteText: "Ceci est obligatoire. Vous ne pouvez pas étudier seul pour cela. Vous devez suivre une formation formelle. Chez <strong>Tadrib.ma</strong>, notre formation comble le fossé entre la théorie et la réalité du marché marocain.",
+                processTitle: "Chronologie de la Candidature",
+                step1: "Soumission (90 Jours)",
+                step2: "Examen (5 Jours)",
+                step3: "Processus d'Audit (Aléatoire)",
+                p3Title: "Survivre à l'Audit & Pourquoi Tadrib.ma ?",
+                auditHead: "Et si je suis audité ?",
+                auditText: "L'audit est aléatoire. Ce n'est pas une pénalité. Si sélectionné, vous avez 90 jours pour envoyer vos documents au PMI.",
+                auditList1: "Copies de votre diplôme.",
+                auditList2: "Signatures de vos superviseurs vérifiant votre expérience.",
+                auditList3: "Certificat de 35 heures (Fourni par Tadrib.ma).",
+                whyTitle: "Pourquoi choisir Tadrib.ma ?",
+                feat1Title: "Expertise Terrain",
+                feat1Text: "Dirigé par l'Ing. Samir Bouchrit, avec 19 ans d'expérience dans la gestion de projets d'infrastructure complexes au Maroc (ADM, SGTM). Vous apprenez du terrain, pas seulement des livres.",
+                feat2Title: "Maîtrise Bilingue",
+                feat2Text: "Nous comprenons le contexte marocain où le français est la langue des affaires, mais l'anglais est la norme PMP. Nous vous aidons à combler ce fossé.",
+                feat3Title: "Support Post-Formation",
+                feat3Text: "Notre relation ne s'arrête pas au cours. Nous vous soutenons tout au long du processus de soumission et d'audit pour garantir votre succès.",
+                ctaTitle: "Prêt à Commencer ?",
+                ctaText: "Réservez votre place dans la prochaine cohorte et sécurisez votre certification PMP."
+            },
+            ar: {
+                download: "تحميل الدليل (PDF)",
+                subtitle: "الخارطة الشاملة للنجاح",
+                title: "طريقك نحو شهادة ®PMP<br><span class='text-brand-blue'>مقبول من المحاولة الأولى.</span>",
+                desc: "دليل شامل للمهندسين والمدراء لاجتياز عملية التقديم لمعهد PMI، مصمم خصيصاً للسياق المغربي وسوق العمل المحلي.",
+                p2Title: "الجزء الأول: هل أنت مؤهل؟",
+                p2Intro: "قبل التقديم، يجب أن تستوفي متطلبات تعليمية ومهنية محددة وضعها معهد PMI. هذا هو الفلتر الأول الذي يتعثر فيه الكثيرون.",
+                cat1Title: "الفئة 1: الشهادة الجامعية (ببكالوريوس)",
+                cat1Edu: "شهادة البكالوريوس أو ما يعادلها عالمياً.",
+                cat1Exp: "36 شهراً من الخبرة المهنية غير المتداخلة في إدارة المشاريع.",
+                cat1Hours: "35 ساعة تدريبية معتمدة في إدارة المشاريع.",
+                cat2Title: "الفئة 2: شهادة الثانوية",
+                cat2Edu: "شهادة الثانوية العامة أو دبلوم مشارك.",
+                cat2Exp: "60 شهراً من الخبرة المهنية غير المتداخلة في إدارة المشاريع.",
+                cat2Hours: "35 ساعة تدريبية معتمدة في إدارة المشاريع.",
+                noteTitle: "شرط الـ 35 ساعة تدريبية",
+                noteText: "هذا الشرط إلزامي ولا يمكن تحقيقه بالدراسة الذاتية. يجب حضور دورة رسمية. في <strong>Tadrib.ma</strong>، لا نوفر هذه الساعات فحسب، بل نربط النظرية بواقع السوق المغربي.",
+                processTitle: "الجدول الزمني للتقديم",
+                step1: "التقديم (90 يوماً)",
+                step2: "المراجعة (5 أيام)",
+                step3: "عملية التدقيق (عشوائي)",
+                p3Title: "اجتياز التدقيق & لماذا Tadrib.ma؟",
+                auditHead: "ماذا لو خضعت للتدقيق (Audit)؟",
+                auditText: "التدقيق عملية عشوائية وليست عقوبة. إذا تم اختيارك، لديك 90 يوماً لإرسال مستنداتك بالبريد إلى PMI.",
+                auditList1: "نسخ من شهاداتك الجامعية.",
+                auditList2: "توقيعات من مشرفيك السابقين للتحقق من خبرتك.",
+                auditList3: "شهادة الـ 35 ساعة (مقدمة من Tadrib.ma).",
+                whyTitle: "لماذا يختار المحترفون Tadrib.ma؟",
+                feat1Title: "خبرة ميدانية حقيقية",
+                feat1Text: "بقيادة المهندس سمير بوشريط، بخبرة 19 عاماً في إدارة مشاريع البنية التحتية المعقدة في المغرب (ADM, SGTM). أنت تتعلم من الميدان، وليس من الكتب فقط.",
+                feat2Title: "إتقان ثنائي اللغة",
+                feat2Text: "نحن نفهم السياق المغربي حيث الفرنسية هي لغة العمل، لكن الإنجليزية هي معيار PMP. نساعدك على سد هذه الفجوة بسهولة.",
+                feat3Title: "دعم ما بعد التدريب",
+                feat3Text: "علاقتنا لا تنتهي بانتهاء الدورة. ندعمك خلال عملية تقديم الطلب والتدقيق لضمان نجاحك.",
+                ctaTitle: "هل أنت مستعد؟",
+                ctaText: "احجز مقعدك في الفوج القادم واضمن حصولك على شهادة PMP."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function setLang(lang) {
+            currentLang = lang;
+            const doc = document.documentElement;
+            const data = content[lang];
+            
+            // 1. Direction & Fonts
+            if (lang === 'ar') {
+                doc.dir = 'rtl';
+                doc.classList.add('rtl');
+                doc.classList.remove('ltr');
+            } else {
+                doc.dir = 'ltr';
+                doc.classList.add('ltr');
+                doc.classList.remove('rtl');
+            }
+
+            // 2. Highlight Button
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('bg-blue-600'));
+            document.getElementById(`btn-${lang}`).classList.add('bg-blue-600');
+
+            // 3. Update Text
+            document.getElementById('download-text').innerText = data.download;
+            
+            // Cover
+            document.getElementById('cover-subtitle').innerText = data.subtitle;
+            document.getElementById('cover-title').innerHTML = data.title;
+            document.getElementById('cover-desc').innerText = data.desc;
+
+            // Page 2
+            document.getElementById('p2-title').innerText = data.p2Title;
+            document.getElementById('p2-intro').innerText = data.p2Intro;
+            document.getElementById('p2-cat1-title').innerText = data.cat1Title;
+            document.getElementById('p2-cat1-edu').innerText = data.cat1Edu;
+            document.getElementById('p2-cat1-exp').innerText = data.cat1Exp;
+            document.getElementById('p2-cat1-hours').innerText = data.cat1Hours;
+            document.getElementById('p2-cat2-title').innerText = data.cat2Title;
+            document.getElementById('p2-cat2-edu').innerText = data.cat2Edu;
+            document.getElementById('p2-cat2-exp').innerText = data.cat2Exp;
+            document.getElementById('p2-cat2-hours').innerText = data.cat2Hours;
+            document.getElementById('p2-note-title').innerText = data.noteTitle;
+            document.getElementById('p2-note-text').innerHTML = data.noteText;
+            document.getElementById('p2-process-title').innerText = data.processTitle;
+            document.getElementById('step1').innerText = data.step1;
+            document.getElementById('step2').innerText = data.step2;
+            document.getElementById('step3').innerText = data.step3;
+
+            // Page 3
+            document.getElementById('p3-title').innerText = data.p3Title;
+            document.getElementById('p3-audit-head').innerText = data.auditHead;
+            document.getElementById('p3-audit-text').innerText = data.auditText;
+            document.getElementById('p3-audit-list1').innerText = data.auditList1;
+            document.getElementById('p3-audit-list2').innerText = data.auditList2;
+            document.getElementById('p3-audit-list3').innerText = data.auditList3;
+            document.getElementById('p3-why-title').innerText = data.whyTitle;
+            document.getElementById('p3-feat1-title').innerText = data.feat1Title;
+            document.getElementById('p3-feat1-text').innerText = data.feat1Text;
+            document.getElementById('p3-feat2-title').innerText = data.feat2Title;
+            document.getElementById('p3-feat2-text').innerText = data.feat2Text;
+            document.getElementById('p3-feat3-title').innerText = data.feat3Title;
+            document.getElementById('p3-feat3-text').innerText = data.feat3Text;
+            document.getElementById('cta-title').innerText = data.ctaTitle;
+            document.getElementById('cta-text').innerText = data.ctaText;
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('document-content');
+            const opt = {
+                margin: 0,
+                filename: `Tadrib_PMP_Guide_${currentLang.toUpperCase()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Show loading state
+            const btn = document.querySelector('button[onclick="downloadPDF()"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = originalText;
+            });
+        }
+
+        // Initialize with default
+        setLang('en');
+    </script>
+</body>
+</html>
