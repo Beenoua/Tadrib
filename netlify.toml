@@ -6,3 +6,27 @@
 
 [processing.html]
   pretty_urls = true
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/login"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/admin/"
+  to = "/admin/login"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = ""
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/404.html"
+  to = "/404"
+  status = 301
+  force = true
