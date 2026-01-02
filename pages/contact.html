@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tadrib.ma | Contactez-nous</title>
+    <meta name="description" content="Contactez l'équipe de Tadrib.ma pour toute question ou demande d'information.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon_io/favicon-32x32.png">
+    <script src="/assets/js/tailwind.js"></script>
+    <link href="/assets/css/fonts.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1E3A8A',
+                            amber: '#F59E0B',
+                            light: '#F0F4F8',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Cairo', 'Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <img src="/assets/images/tadrib_logo.webp" alt="Tadrib.ma Logo" width="150" height="45">
+            </a>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 border border-gray-200 rounded-lg p-1">
+                    <button id="btn-ar"
+                        class="lang-btn px-3 py-1 text-sm rounded-md transition-colors duration-300 hover:bg-gray-100">AR</button>
+                    <button id="btn-fr"
+                        class="lang-btn px-3 py-1 text-sm rounded-md transition-colors duration-300 hover:bg-gray-100 active bg-brand-blue text-white">FR</button>
+                    <button id="btn-en"
+                        class="lang-btn px-3 py-1 text-sm rounded-md transition-colors duration-300 hover:bg-gray-100">EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-6 py-12">
+
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="md:flex">
+                <!-- Contact Info Side -->
+                <div class="md:w-1/3 bg-brand-blue text-white p-8 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-6" data-lang-key="ContactInfoTitle">معلومات الاتصال</h2>
+                        <p class="mb-6 opacity-90" data-lang-key="ContactInfoDesc">نحن هنا للإجابة على جميع استفساراتكم.
+                            لا تترددوا في التواصل معنا.</p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-envelope mt-1 text-brand-amber"></i>
+                                <span>contact@tadrib.ma</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-phone mt-1 text-brand-amber"></i>
+                                <span dir="ltr">+212 6 00 00 00 00</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-map-marker-alt mt-1 text-brand-amber"></i>
+                                <span data-lang-key="Address">الدار البيضاء، المغرب</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <div class="flex gap-4">
+                            <a href="#" class="hover:text-brand-amber transition"><i
+                                    class="fab fa-facebook fa-lg"></i></a>
+                            <a href="#" class="hover:text-brand-amber transition"><i
+                                    class="fab fa-linkedin fa-lg"></i></a>
+                            <a href="#" class="hover:text-brand-amber transition"><i
+                                    class="fab fa-instagram fa-lg"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Side -->
+                <div class="md:w-2/3 p-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-6" data-lang-key="ContactUsTitle">اتصل بنا</h1>
+
+                    <form id="contactForm" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+                                    data-lang-key="FormName">الاسم الكامل</label>
+                                <input type="text" id="name" name="name" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
+                                    data-lang-key="FormEmail">البريد الإلكتروني</label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1"
+                                data-lang-key="FormSubject">الموضوع</label>
+                            <input type="text" id="subject" name="subject" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1"
+                                data-lang-key="FormMessage">الرسالة</label>
+                            <textarea id="message" name="message" rows="5" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition"></textarea>
+                        </div>
+
+                        <div id="formStatus" class="hidden p-3 rounded-lg text-sm"></div>
+
+                        <button type="submit" id="submitBtn"
+                            class="w-full bg-brand-blue hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex justify-center items-center gap-2">
+                            <span data-lang-key="FormSubmit">إرسال الرسالة</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-auto">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400 mb-4" data-lang-key="Copyright">© 2025 Tadrib.ma. Tous droits réservés.</p>
+            <div class="flex justify-center gap-6 text-sm text-gray-400">
+                <a href="/pages/terms.html" class="hover:text-white transition"
+                    data-lang-key="TermsOfService">Conditions d'utilisation</a>
+                <a href="/pages/privacy.html" class="hover:text-white transition"
+                    data-lang-key="PrivacyPolicy">Politique de confidentialité</a>
+                <a href="/pages/refund.html" class="hover:text-white transition" data-lang-key="RefundPolicy">Politique
+                    de remboursement</a>
+                <a href="/pages/disclaimer.html" class="hover:text-white transition" data-lang-key="Disclaimer">Avis de
+                    non-responsabilité</a>
+                <a href="/pages/contact.html" class="hover:text-white transition"
+                    data-lang-key="ContactUs">Contactez-nous</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/pages.js"></script>
+</body>
+
+</html>
